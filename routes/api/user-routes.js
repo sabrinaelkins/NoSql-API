@@ -2,7 +2,7 @@ const router = require('express').Router();
 const db = require("../../Models/User");
 const Thought = require("../../Models/Thoughts")
 
-router.get("/api/thoughts"), (req,res) => {
+router.get("/api/user"), (req,res) => {
     db.find()
     .populate('friends')
     .populate('thoughs')
@@ -11,7 +11,7 @@ router.get("/api/thoughts"), (req,res) => {
         res.json(result)
     })
 }
-router.get("/api/thoughts/:id"), (req,res) => {
+router.get("/api/user/:id"), (req,res) => {
     db.findOne({_id:req.params.id})
     .populate('friends')
     .populate('thoughts')
@@ -20,7 +20,7 @@ router.get("/api/thoughts/:id"), (req,res) => {
         res.json(result)
     })
 }
-router.post("/api/thought"), (req,res) => {
+router.post("/api/user"), (req,res) => {
     db.Create(req.body)
     .then ((records) => {
         console.timeLog("post",result)
@@ -42,14 +42,12 @@ router.delete("/api/user/:id"), (req,res) => {
         res.json(result)
     })
 }
-router.put("/api/thoughts/:thoughtId/reaction"), (req,res) => {
+router.put("/api/user/:userid/friends/:friendsid"), (req,res) => {
     db.findOneAndUpdate({_id:req.params.userid},
-        {$addToSet:{thoughts:req.params.thoughtId}},{new:true})
+        {$addToSet:{friends:req.params.friendsid}},{new:true})
     .then ((records) => {
         console.timeLog("put",result)
         res.json(result)
     })
 }
 module.exports = router;
-module.exports = router;
-

@@ -1,4 +1,5 @@
 const {Schema,model} = require("mongoose");
+const dateFormat = require("../utils/dateFormat");
 
 const reactionSchema = new Schema({
   reactionID: {
@@ -7,7 +8,8 @@ const reactionSchema = new Schema({
   },
   reactionBody: {
     type: String,
-    required: true
+    required: true,
+    maxLength: 200
   },
   username: {
     type: String,
@@ -16,8 +18,13 @@ const reactionSchema = new Schema({
   },
   createdAt: {
         type: Date,
-        default: Date.now
-  },
+        default: Date.now,
+        get: timeStamp => dateFormat(timeStamp)
+  }
+},{
+  toJSON:{
+    getters: true
+  }
 });
 
 const reaction = mongoose.model("Reaction", reactionSchema);

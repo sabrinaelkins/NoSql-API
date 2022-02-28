@@ -1,5 +1,4 @@
 # NoSql-API
-# NoSQL-Social-App
 
 ## Description
 
